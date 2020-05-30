@@ -1,4 +1,5 @@
 
+import math
 import h5py
 import numpy as np
 import cv2
@@ -63,7 +64,15 @@ def getSubpics(imgData, depthData, lenRatio, strideRatio):
 
 imgs, depths = getSubpics(imgs, depths, .75, .25)
 
+m = imgs.shape[0]
 print(imgs.shape)
 print(depths.shape)
 
-np.savez_compressed('data.npz', images=imgs, depths=depths)
+BATCH_SIZE = 64
+
+for i in range(math.ceil(1.0 * m / BATCH_SIZE)):
+    s = BATCH_SIZE * i
+    e = min(BATCH_SIZE * (i + 1), m)
+    np.savez_compressed('data' + str(i) + '.npz',
+                        images=imgs[s:e],
+                        depths=depths[s:e])

@@ -12,7 +12,7 @@ def display(displayList):
     plt.show()
 
 
-data = np.load('data.npz')
+data = np.load('data0.npz')
 imgs = data['images']
 deps = data['depths']
 display([imgs[0], deps[0]])
