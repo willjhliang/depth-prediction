@@ -1,2 +1,2 @@
 # Monocular Depth Prediction with a Fully Convolutional Neural Network
-Used U-net variation and trained with NYU Depth v2 dataset
+Uses U-net variation and trains with NYU Depth v2 dataset
