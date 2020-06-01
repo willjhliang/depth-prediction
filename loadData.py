@@ -16,5 +16,5 @@ data = np.load('nyuDepth/data0.npz')
 imgs = data['images']
 deps = data['depths']
 
-print(imgs[0].shape)
+print(imgs.shape)
 display([imgs[0], deps[0]])

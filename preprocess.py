@@ -10,6 +10,13 @@ with h5py.File('nyuDepth_v2.mat', 'r') as f:
     depths = f.get('depths')[()]
 
 m = imgs.shape[0]
+imgs = np.moveaxis(imgs, 1, -1)
+depths = np.expand_dims(depths, axis=-1)
+
+random = np.arange(m)
+np.random.shuffle(random)
+imgs = imgs[random]
+depths = depths[random]
 
 
 def resize(data, scale):
@@ -22,20 +29,8 @@ def resize(data, scale):
     return ret
 
 
-imgs = np.moveaxis(imgs, 1, -1)
-depths = np.expand_dims(depths, axis=-1)
-
-imgs = resize(imgs, .5)
-depths = resize(depths, .5)
-
-
-def display(displayList):
-    plt.figure(figsize=(15, 15))
-    for i in range(len(displayList)):
-        plt.subplot(1, len(displayList), i + 1)
-        plt.imshow(displayList[i])
-        plt.axis('off')
-    plt.show()
+imgs = resize(imgs, .4)
+depths = resize(depths, .4)
 
 
 def getSubpics(imgData, depthData, subWidth, subHeight, xStride, yStride):
@@ -58,7 +53,7 @@ def getSubpics(imgData, depthData, subWidth, subHeight, xStride, yStride):
     return imgRet, depthRet
 
 
-imgs, depths = getSubpics(imgs, depths, 256, 192, 64, 48)
+imgs, depths = getSubpics(imgs, depths, 128, 128, 128, 64)
 
 m = imgs.shape[0]
 print(imgs.shape)
@@ -69,6 +64,6 @@ BATCH_SIZE = 64
 for i in range(math.ceil(1.0 * m / BATCH_SIZE)):
     s = BATCH_SIZE * i
     e = min(BATCH_SIZE * (i + 1), m)
-    np.savez_compressed('nyuDepth/data' + str(i) + '.npz',
+    np.savez_compressed('nyuDepth2/data' + str(i) + '.npz',
                         images=imgs[s:e],
                         depths=depths[s:e])
