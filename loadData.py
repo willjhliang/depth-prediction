@@ -12,7 +12,9 @@ def display(displayList):
     plt.show()
 
 
-data = np.load('data0.npz')
+data = np.load('nyuDepth/data0.npz')
 imgs = data['images']
 deps = data['depths']
+
+print(imgs[0].shape)
 display([imgs[0], deps[0]])

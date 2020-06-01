@@ -38,23 +38,19 @@ def display(displayList):
     plt.show()
 
 
-def getSubpics(imgData, depthData, lenRatio, strideRatio):
+def getSubpics(imgData, depthData, subWidth, subHeight, xStride, yStride):
     imgRet = []
     depthRet = []
     height = imgData.shape[2]
     width = imgData.shape[1]
-    subHeight = (int)(height * lenRatio)
-    subWidth = (int)(width * lenRatio)
-    yStride = (int)(height * strideRatio)
-    xStride = (int)(width * strideRatio)
-    print(yStride)
+    print(imgData.shape)
     for i in range(m):
         for j in range(0, height, yStride):
             for k in range(0, width, xStride):
                 img = imgData[i, k:k + subWidth, j:j + subHeight, :]
                 depth = depthData[i, k:k + subWidth, j:j + subHeight]
                 if img.shape[0] != subWidth or img.shape[1] != subHeight:
-                    continue
+                    break
                 imgRet.append(img)
                 depthRet.append(depth)
     imgRet = np.array(imgRet)
@@ -62,7 +58,7 @@ def getSubpics(imgData, depthData, lenRatio, strideRatio):
     return imgRet, depthRet
 
 
-imgs, depths = getSubpics(imgs, depths, .75, .25)
+imgs, depths = getSubpics(imgs, depths, 256, 192, 64, 48)
 
 m = imgs.shape[0]
 print(imgs.shape)
@@ -73,6 +69,6 @@ BATCH_SIZE = 64
 for i in range(math.ceil(1.0 * m / BATCH_SIZE)):
     s = BATCH_SIZE * i
     e = min(BATCH_SIZE * (i + 1), m)
-    np.savez_compressed('data' + str(i) + '.npz',
+    np.savez_compressed('nyuDepth/data' + str(i) + '.npz',
                         images=imgs[s:e],
                         depths=depths[s:e])
