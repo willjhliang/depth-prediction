@@ -23,14 +23,14 @@ def resize(data, scale):
     ret = []
     for i in range(m):
         img = data[i]
-        img = cv2.resize(data[i], (0, 0), fx=.5, fy=.5)
+        img = cv2.resize(data[i], (0, 0), fx=scale, fy=scale)
         ret.append(img)
     ret = np.array(ret)
     return ret
 
 
-imgs = resize(imgs, .4)
-depths = resize(depths, .4)
+imgs = resize(imgs, .6)
+depths = resize(depths, .6)
 
 
 def getSubpics(imgData, depthData, subWidth, subHeight, xStride, yStride):
@@ -53,7 +53,7 @@ def getSubpics(imgData, depthData, subWidth, subHeight, xStride, yStride):
     return imgRet, depthRet
 
 
-imgs, depths = getSubpics(imgs, depths, 128, 128, 128, 64)
+imgs, depths = getSubpics(imgs, depths, 128, 128, 128, 80)
 
 m = imgs.shape[0]
 print(imgs.shape)
