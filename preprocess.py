@@ -1,4 +1,9 @@
 
+"""
+BACKUP preprocessing step; data will be handeled by dataGenerator instead
+"""
+
+
 import math
 import h5py
 import numpy as np
@@ -59,14 +64,6 @@ def getSubpics(imgData, depthData, subWidth, subHeight, xStride, yStride):
 
 
 imgs, depths = getSubpics(imgs, depths, 128, 128, 128, 64)
-<<<<<<< HEAD
-=======
-
-flipImgs = [cv2.flip(img, 1) for img in imgs]
-flipDepths = [cv2.flip(depth, 1) for depth in depths]
-imgs = np.concatenate((imgs, np.array(flipImgs)))
-depths = np.concatenate((depths, np.array(flipDepths)))
->>>>>>> 47495be9cc0004796561f433678cd33b05d2b3da
 
 m = imgs.shape[0]
 random = np.arange(m)
@@ -77,16 +74,6 @@ depths = depths[random]
 print(imgs.shape)
 print(depths.shape)
 
-<<<<<<< HEAD
 for i in range(m):
     np.save('nyuDepth2/img' + str(i) + '.npy', imgs[i])
     np.save('nyuDepth2/dep' + str(i) + '.npy', depths[i])
-=======
-BATCH_SIZE = 64
-for i in range(math.ceil(1.0 * m / BATCH_SIZE)):
-    s = BATCH_SIZE * i
-    e = min(BATCH_SIZE * (i + 1), m)
-    np.savez_compressed('nyuDepth2/data' + str(i) + '.npz',
-                        images=imgs[s:e],
-                        depths=depths[s:e])
->>>>>>> 47495be9cc0004796561f433678cd33b05d2b3da
