@@ -75,5 +75,5 @@ print(imgs.shape)
 print(depths.shape)
 
 for i in range(m):
-    np.save('nyuDepth2/img' + str(i) + '.npy', imgs[i])
-    np.save('nyuDepth2/dep' + str(i) + '.npy', depths[i])
+    np.save('nyuDepth/img' + str(i) + '.npy', imgs[i])
+    np.save('nyuDepth/dep' + str(i) + '.npy', depths[i])

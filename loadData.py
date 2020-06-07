@@ -3,6 +3,9 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
+plt.style.use('dark_background')
+
+
 def display(displayList):
     plt.figure(figsize=(15, 15))
     for i in range(len(displayList)):
@@ -12,9 +15,10 @@ def display(displayList):
     plt.show()
 
 
-data = np.load('nyuDepth/data0.npz')
-imgs = data['images']
-deps = data['depths']
+img = np.load('nyuDepth/img0.npy')
+dep = np.load('nyuDepth/dep0.npy')
 
-print(imgs.shape)
-display([imgs[0], deps[0]])
+print(img.shape)
+print(dep.shape)
+
+display([img, dep])
