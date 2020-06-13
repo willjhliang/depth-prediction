@@ -1,1 +1,1 @@
-# Fully Convolutional Neural Network with Skip Connections for Monocular Depth Prediction
+# Monocular Depth Prediction with a Fully Convolutional Neural Network and Skip Connections
